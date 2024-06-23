@@ -12,7 +12,7 @@ HEADER = '''
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Book of the Library</title>
         <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link rel='stylesheet' type='text/css' href="{{url_for('static', filename='styles/styles.css') }}">
+        <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='styles/styles.css') }}">
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     </head>
     <body>
@@ -136,15 +136,34 @@ FOOTER = '''
 '''
 
 STATUS_HEADER = '''
-
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Status of the Books</title>
+        <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='styles/style.css') }}
+    </head>
+    <body>
+        <table border='1'>
+            <tr>
+            <th>Code</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Note</th>
+            </tr>
 '''
 
 STATUS = '''
-
+        <form action='/status_page' method='get'>
+        <input type='submit' value='Show Status'>
+        <form>
 '''
 
 STATUS_STATUS = '''
-
+        <form action='/status' method='post'
+        <input type='text' name='code' placeholder='Insert Code'>
+        <input type='text' name='status' placeholder='Insert Status'>
+        <input type='submit' value='Add Status'>
+        </form>
 '''
 
 STATUS_DATE = '''

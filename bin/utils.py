@@ -19,11 +19,11 @@ class Book:
 
 
 class BookStatus:
-    def __init__(self, book: Book, status, date, msg):
+    def __init__(self, book: Book, status, date, note):
         self.book = book
         self.status = status
         self.date = date
-        self.msg = msg
+        self.note = note
 
 
 def create_books_webpage():
@@ -69,3 +69,46 @@ def create_books_webpage():
         
         f.write(FOOTER)
     print("Books webpage created")
+
+
+def search_books_webpage_author(author):
+    db = DatabaseManager_books()
+    books = db.read_books()
+    
+    with open("./templates/books.html", "w") as f:
+        f.write(HEADER)
+        
+        for book in books:
+            if author in book[2] or author in book[2].lower():
+                f.write(f"<tr><td><a href='/load_book?code={book[7]}'>{book[1]}</a></td><td>{book[2]}</td><td>{book[3]}</td><td>{book[4]}</td><td>{book[5]}</td><td>{book[6]}</td><td>{book[7]}</td></tr>")
+        
+        f.write("\t</table>")
+        f.write(HOME)
+        f.write(FOOTER)
+
+
+def search_books_webpage_genre(genre):
+    db = DatabaseManager_books()
+    books = db.read_books()
+    
+    with open("./templates/books.html", "w") as f:
+        f.write(HEADER)
+        
+        for book in books:
+            if genre in book[5] or genre in book[5].lower():
+                f.write(f"<tr><td><a href='/load_book?code={book[7]}'>{book[1]}</a></td><td>{book[2]}</td><td>{book[3]}</td><td>{book[4]}</td><td>{book[5]}</td><td>{book[6]}</td></tr>")
+
+def search_books_webpage_type(type):
+    db = DatabaseManager_books()
+    books = db.read_books()
+    
+    with open("./templates/books.html", "w") as f:
+        f.write(HEADER)
+        
+
+def search_books_webpage(seach):
+    db = DatabaseManager_books()
+    books = db.read_books()
+    
+    with open("./templates/books.html", "w") as f:
+        f.write(HEADER)
