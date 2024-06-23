@@ -21,3 +21,4 @@ class BookStatus:
         self.status = status
         self.date = date
         self.msg = msg
+

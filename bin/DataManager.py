@@ -22,7 +22,8 @@ class DatabaseManager_books:
                             genre TEXT,
                             type TEXT,
                             code TEXT UNIQUE,
-                            link_cover TEXT
+                            link_cover TEXT,
+                            description text
                             )''')
         self.connection.commit()
         
@@ -33,8 +34,8 @@ class DatabaseManager_books:
     
     def write_book(self, book):
         if not self.check_duplicate(book):
-            self.cursor.execute("INSERT INTO book (title, author, publisher, year, genre, type, code, link_cover) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-                                (book.title, book.author, book.editor, book.year, book.genre, book.type, book.code, book.link_cover))
+            self.cursor.execute("INSERT INTO book (title, author, publisher, year, genre, type, code, link_cover, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                                (book.title, book.author, book.editor, book.year, book.genre, book.type, book.code, book.link_cover, book.description))
             self.connection.commit()
             
     def read_books(self):
@@ -42,8 +43,8 @@ class DatabaseManager_books:
         return self.cursor.fetchall()
     
     def update_book(self, book):
-        self.cursor.execute("UPDATE book SET title=?, author=?, publisher=?, year=?, genre=?, type=?, link_cover=? WHERE code=?",
-                            (book.title, book.author, book.editor, book.year, book.genre, book.type, book.link_cover, book.codice))
+        self.cursor.execute("UPDATE book SET title=?, author=?, publisher=?, year=?, genre=?, type=?, link_cover=? description=? WHERE code=?",
+                            (book.title, book.author, book.editor, book.year, book.genre, book.type, book.link_cover, book.description, book.codice))
         self.connection.commit()
         
     def update_code(self, book):
