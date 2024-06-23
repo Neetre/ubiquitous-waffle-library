@@ -45,3 +45,116 @@ HOME = '''
                     <input type='submit' value='Home'>
                     </form>
 '''
+
+SEARCH_BOOKS = '''
+                    <form action='/search_books' method='post'>
+                    <input type='text' name='search' placeholder='Insert the name'>
+                    <input type='submit' value='Search Book'>
+                    </form>
+'''
+
+SEARCH_BOOKS_AUTHOR = '''
+                    <form action='/search_author' method='post'>
+                    <input type='text' name='author' placeholder='Author'>
+                    <input type='submit' value='Search Author'>
+                    </form>
+'''
+
+SEARCH_BOOKS_GENRE = '''
+                    <form action='/search_genre' method='post'>
+                    <input type='text' name='genre' placeholder='Insert the genre'>
+                    <input type='submit' value='Search Genre'>
+                    </form>
+'''
+
+SEARCH_BOOKS_TYPE = '''
+                    <form action='/search_type' method='post'>
+                    <input type='text' name='type' placeholder='Insert the type'>
+                    <input type='submit' value='Search Type'>
+                    </form>
+'''
+
+ADD_BOOK = '''
+                    <form action='/add_book' method='post' class='book-form'>
+                    <input type='text' name='title' placeholder='Title'>
+                    <input type='text' name='surname' placeholder='Author surname'>
+                    <input type='text' name='name' placeholder='Author name'>
+                    <input type='text' name='publisher' placeholder="Publisher'>
+                    <input type='text' name='year' placeholder='Year'>
+                    <input type='text' name='genre' placeholder='Genre'>
+                    <input type='text' name='type' placeholder='Type'>
+                    <input type='submit' value="Add Book">
+                    </form>
+'''
+
+UPDATE_BOOK = '''
+                    <form action='/update_book' method='post' class='book-form'>
+                    <input type='text' name='code' placeholder='Code'>
+                    <input type='text' name='title' placeholder='Title'>
+                    <input type='text' name='author' placeholder='Author'>
+                    <input type='text' name='publisher' placeholder="Publisher'>
+                    <input type='text' name='year' placeholder='Year'>
+                    <input type='text' name='genre' placeholder='Genre'>
+                    <input type='text' name='type' placeholder='Type'>
+                    <input type='submit' value="Update Book">
+                    </form>
+'''
+
+DELETE_BOOK = '''
+                    <form action='/delete_book' method='post'>
+                    <input type='text' name='code' placeholder='Code'>
+                    <input type='submit' value='Delete Book'>
+                    </form>
+'''
+
+BOOK_ADD_LINK = '''
+                    <form action='/add_link' method='post' class='book-form'>
+                    <input type='text' name='code' placeholder='Code'>
+                    <input type='text' name='photo_link' placeholder='Link cover'>
+                    <input type='submit' value="Add cover link">
+                    </form>
+'''
+
+BOOK_ADD_DESCRIPTION = '''
+                    <form action='/add_description' method='post' class='book-form'>
+                    <textarea id="book-description" name="book-description" placeholder="Write the book description here..."></textarea>
+                    <button type="submit" class="submit-btn">Submit</button>
+                    </form>
+'''
+
+
+FOOTER = '''
+            </div>
+        </main>
+        <footer>
+            <div class="container">
+                <p>&copy; 2024 Neetre. All rights reserved.</p>
+            </div>
+        </footer>
+    </body>
+</html>
+'''
+
+STATUS_HEADER = '''
+
+'''
+
+STATUS = '''
+
+'''
+
+STATUS_STATUS = '''
+
+'''
+
+STATUS_DATE = '''
+
+'''
+
+STATUS_REMOVE = '''
+
+'''
+
+HEADER_BOOK_PAGE = '''
+
+'''
