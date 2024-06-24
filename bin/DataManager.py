@@ -1,3 +1,9 @@
+'''
+This module is used to manage the database of the books and their status.
+
+Neetre 2024
+'''
+
 import sqlite3
 import os
 

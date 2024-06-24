@@ -1,5 +1,10 @@
 # ubiquitous-waffle-library
 
+![Language](https://img.shields.io/badge/Spellcheck-Pass-green?style=flat)
+![Language](https://img.shields.io/badge/Language-Python-yellowgreen?style=flat)
+![Testing](https://img.shields.io/badge/PEP8%20Check-Passing-green)
+![Testing](https://img.shields.io/badge/Test-Pass-green)
+
 ## Description
 
 The program webpage.py, offers a simple system to keep a record of all the books someone has in their home.
@@ -14,6 +19,7 @@ The website is very simple, it has only 3 pages:
 
 For the covers of the books, for now the link you should provide is only a static one,
 so:
+
 - download your cover,
 - move it in the 'bin/static/covers/' directory
 - use the 'add_link' function on the website and write the name of the picture in the box.
@@ -46,6 +52,8 @@ These scripts will install required dependencies, and build a virtual environmen
 ### GUI:
 
 Double click on the *start files* for your OS, and it should open the 'web app' automatically after setting up the environment, like I wrote in the **Requirements** area.
+
+At some point it will ask you 'LAN IP? (y/n):', if you say 'y' then you will load your page on a IP address that is visible from other devices in your LAN network. With 'n' you will run it locally, no access from outside your computer.
 
 ## Author
 

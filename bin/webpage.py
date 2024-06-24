@@ -1,4 +1,5 @@
 '''
+The program is a web application that allows the user to manage a home library.
 
 Neetre 2024
 '''
@@ -39,10 +40,10 @@ def home_page():
 @app.route('/search', methods=['POST', 'GET'])
 def search():
     if request.method == 'POST':
-        search = request.form['search']
+        search_ = request.form['search']
     else:
-        search = request.args.get('search')
-    search_webpage(search)
+        search_ = request.args.get('search')
+    search_webpage(search_)
     return render_template('books.html')
 
 '''
@@ -195,11 +196,11 @@ def description():
 def add_description():
     if request.method == 'POST':
         code = request.form['code']
-        description = request.form['description']
+        description_ = request.form['description']
     else:
         code = request.args.get('code')
-        description = request.args.get('description')
-    add_book_description(code, description)
+        description_ = request.args.get('description')
+    add_book_description(code, description_)
     return render_template('book.html')
 
 
@@ -222,7 +223,7 @@ if __name__ == "__main__":
     args = args_parsing()
     if args.verbose:
         ic.enable()
-    
+
     if args.local:
         app.run(host='127.0.0.1', port=5000, debug=args.debug)
     elif args.ip:

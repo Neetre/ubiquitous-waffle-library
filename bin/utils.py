@@ -1,4 +1,6 @@
 '''
+The program offers a set of functions used in the utils.py.
+
 Neetre 2024
 '''
 
@@ -36,17 +38,6 @@ class Book:
         return f"{self.title} by {self.author} published by {self.publisher} in {self.year} - {self.genre} - {self.tipe} - {self.code}"
 
 
-class BookStatus:
-    def __init__(self, book: Book, status, date, note):
-        self.book = book
-        self.status = status
-        self.date = date
-        self.note = note
-
-    def __str__(self):
-        return f"{self.book.title} - {self.status} - {self.date} - {self.note}"
-
-
 def read_books():
     db = DatabaseManager_books()
     books = db.read_books()
@@ -55,17 +46,17 @@ def read_books():
 
 def create_books_webpage():
     books = read_books()
-    
+
     with open("./templates/books.html", "w", encoding='utf-8') as f:
         f.write(HEADER)
-        
+
         for book in books:
             f.write(f"<tr><td><a href='/load_book?code={book.code}'>{book.title}</a></td><td>{book.author}</td><td>{book.publisher}</td><td>{book.year}</td><td>{book.genre}</td><td>{book.tipe}</td><td>{book.code}</td></tr>\n")
 
         f.write("</tbody>")
         f.write("</table>")
         f.write("</section>")
-        
+
         f.write("\t\t\t\t<section class='from-section'>\n")
         f.write("\t\t\t\t\t<h2>Add/Remove Book</h2>\n")
         f.write(ADD_BOOK)
@@ -95,11 +86,11 @@ def create_books_webpage():
         '''
         f.write("<h2>Add link of the book cover</h2>")
         f.write(BOOK_ADD_LINK)
-        
+
         f.write("<section class='status-section'>")
         f.write(STATUS)
         f.write("</section>")
-        
+
         f.write(FOOTER)
     ic("Books webpage created")
 
@@ -107,10 +98,10 @@ def create_books_webpage():
 def search_webpage(search):
     db = DatabaseManager_books()
     books = db.read_books()
-    
+
     with open("./templates/books.html", "w", encoding='utf-8') as f:
         f.write(HEADER)
-        
+
         for book in books:
             if search in [str(book[n]) for n in range(len(book)-1)] or search in [str(book[n]).lower() for n in range(len(book)-1)]:
                 f.write(f"<tr><td><a href='/load_book?code={book[7]}'>{book[1]}</a></td><td>{book[2]}</td><td>{book[3]}</td><td>{book[4]}</td><td>{book[5]}</td><td>{book[6]}</td><td>{book[7]}</td></tr>\n")
@@ -124,10 +115,10 @@ def search_webpage(search):
 def search_books_webpage(search):
     db = DatabaseManager_books()
     books = db.read_books()
-    
+
     with open("./templates/books.html", "w", encoding='utf-8') as f:
         f.write(HEADER)
-        
+
         for book in books:
             if search in [str(book[n]) for n in range(len(book)-1)] or search in [str(book[n]).lower() for n in range(len(book)-1)]:
                 f.write(f"<tr><td><a href='/load_book?code={book[7]}'>{book[1]}</a></td><td>{book[2]}</td><td>{book[3]}</td><td>{book[4]}</td><td>{book[5]}</td><td>{book[6]}</td><td>{book[7]}</td></tr>\n")
@@ -140,10 +131,10 @@ def search_books_webpage(search):
 
 def search_books_webpage_author(author):
     books = read_books()
-    
+
     with open("./templates/books.html", "w", encoding='utf-8') as f:
         f.write(HEADER)
-        
+
         for book in books:
             if author in book.author or author in book.author.lower():
                 f.write(f"<tr><td><a href='/load_book?code={book.code}'>{book.title}</a></td><td>{book.author}</td><td>{book.publisher}</td><td>{book.year}</td><td>{book.genre}</td><td>{book.tipe}</td><td>{book.code}</td></tr>\n")
@@ -156,22 +147,22 @@ def search_books_webpage_author(author):
 
 def search_books_webpage_genre(genre):
     books = read_books()
-    
+
     with open("./templates/books.html", "w", encoding='utf-8') as f:
         f.write(HEADER)
-        
+
         for book in books:
             if genre in book.genre or genre in book.genre.lower():
                 f.write(f"<tr><td><a href='/load_book?code={book.code}'>{book.title}</a></td><td>{book.author}</td><td>{book.publisher}</td><td>{book.year}</td><td>{book.genre}</td><td>{book.tipe}</td><td>{book.code}</td></tr>\n")
         f.write("\t</table>")
         f.write(HOME)
         f.write(FOOTER)
-        
+
     ic("Books webpage created")
 
 def search_books_webpage_type(tipe):
     books = read_books()
-    
+
     with open("./templates/books.html", "w", encoding='utf-8') as f:
         f.write(HEADER)
 
@@ -181,13 +172,13 @@ def search_books_webpage_type(tipe):
         f.write("\t</table>")
         f.write(HOME)
         f.write(FOOTER)
-    
+
     ic("Books webpage created")
 
 
 def search_books_webpage_year(year):
     books = read_books()
-    
+
     with open("./templates/books.html", "w", encoding='utf-8') as f:
         f.write(HEADER)
 
@@ -197,13 +188,13 @@ def search_books_webpage_year(year):
         f.write("\t</table>")
         f.write(HOME)
         f.write(FOOTER)
-    
+
     ic("Books webpage created")
 
 
 def add_book_webpage(title, author, publisher, year, genre, tipe):
     db = DatabaseManager_books()
-    
+
     code = title[:3].upper() + author[:3].upper() + publisher[:3].upper() + str(year)
     book = Book(title, author, publisher, year, genre, tipe, code)
     db.write_book(book)
@@ -245,7 +236,7 @@ def delete_book_webpage(code):
 def load_book_webpage(code):
     books = read_books()
     book = [book for book in books if book.code == code][0]
-    
+
     with open("./templates/book.html", "w", encoding='utf-8') as file:
         file.write(HEADER_BOOK_PAGE)
         file.write(f"<h1>Title: {book.title}</h1>")

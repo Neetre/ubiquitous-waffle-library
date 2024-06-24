@@ -1,5 +1,5 @@
 '''
-Templates for the various webpages
+Templates for the various pieces of HTML code that are used in the application.
 
 Neetre 2024
 '''
