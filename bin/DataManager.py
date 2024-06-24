@@ -62,9 +62,44 @@ class DatabaseManager_books:
                             (book.author, book.title, book.code))
         self.connection.commit()
         
-    def search_book(self, search):
-        pass
-        
     def __del__(self):
         if self.connection:
             self.connection.close()
+
+
+class DatabaseManager_status:
+    def __init__(self, db_file="../data/libri.db"):
+        self.db_file = db_file
+        self.connection = sqlite3.connect(self.db_file)
+        self.cursor = self.connection.cursor()
+        self.create_database()
+
+    def create_database(self):
+        self.cursor.execute('''CREATE TABLE IF NOT EXISTS status (
+                            ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                            code TEXT,
+                            status TEXT,
+                            date TEXT,
+                            note TEXT
+                            )''')
+        self.cursor.execute("CREATE INDEX IF NOT EXISTS idx_code ON status(code)")
+        self.connection.commit()
+
+    def check_duplicate(self, book):
+        self.cursor.excecute("SELECT * FROM status WHERE code=? AND status=? AND date=?",
+                             (book.code, book.status, book.date))
+        return self.cursor.fetchone() is not None
+
+    def write_status(self, book, status='Available', date='N/A', note='No note'):
+        if not self.check_duplicate(book):
+            self.cursor.execute('''INSERT INTO status
+                                (code, status, date, note)
+                                VALUES (?, ?, ?, ?)''',
+                                (book.code, status, date, note))
+            self.connection.commit()
+
+    def read_status(self):
+        self.cursor.execute("SELECT * FROM status")
+        return self.cursor.fetchall()
+
+    

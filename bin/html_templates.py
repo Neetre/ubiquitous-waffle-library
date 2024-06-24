@@ -167,13 +167,35 @@ STATUS_STATUS = '''
 '''
 
 STATUS_DATE = '''
+        <form action='/date' method='post'
+        <input type='text' name='code' placeholder='Insert Code'>
+        <input type='text' name='date' placeholder='Insert Date'>
+        <input type='submit' value='Add Date'>
+        </form>
+'''
 
+STATUS_NOTE = '''
+        <form action='/note' method='post'
+        <input type='text' name='code' placeholder='Insert Code'>
+        <input type='text' name='note' placeholder='Insert Note'>
+        <input type='submit' value='Add Note'>
+        </form>
 '''
 
 STATUS_REMOVE = '''
-
+        <form action='/remove' method='post'
+        <input type='text' name='code' placeholder='Insert Code'>
+        <input type='submit' value='Remove Status'>
+        </form>
 '''
 
 HEADER_BOOK_PAGE = '''
-
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Book</title>
+        <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='styles/style_book.css') }}
+    </head>
+    <body>
+        <div class="container">
 '''

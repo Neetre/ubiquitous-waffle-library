@@ -230,4 +230,32 @@ def load_book_webpage(code):
         file.write(f"<h2>Code: {book.code}</h2>")
         file.write(f"<h2>Description: {book.desciption}</h2>")
         file.write("<img src=\"{{ url_for(\'static\',filename=\'copertine/"+ book.link_cover + "\') }}\" alt=\'Copertina del libro\'>")
+        file.write(HOME)
+        file.write("</div>")
+        file.write(FOOTER)
 
+
+def create_status_webpage():
+    db_status = DatabaseManager_status()
+
+    books = read_books()
+
+    for book in books:
+        db_status.write_status(book)
+
+    status_books = db_status.read_status()
+
+    with open("./templates/status.html", "w") as f:
+        f.write(STATUS_HEADER)
+
+        for status in status_books:
+            f.write(f"<tr><td>{status[1]}</td><td>{status[2]}</td><td>{status[3]}</td><td>{status[4]}</td></tr>")
+
+        f.write("</table>")
+        f.write(STATUS_STATUS)
+        f.write(STATUS_DATE)
+        f.write(STATUS_NOTE)
+        f.write(HOME)
+        f.write(FOOTER)
+
+    ic("Status webpage created")
