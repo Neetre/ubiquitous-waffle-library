@@ -32,7 +32,8 @@
                             </tr>
                         </thead>
                         <tbody>
-<tr><td><a href='/load_book?code=PIPCREDKK0091'>pippo</a></td><td>crea scimi</td><td>dkk</td><td>91</td><td>kkd</td><td>dkkkd</td><td>PIPCREDKK0091</td></tr>
+<tr><td><a href='/load_book?code=PIIDLLDKK1920'>piippo</a></td><td>dlla dkkdk</td><td>dkkaòe</td><td>1920</td><td>kkdl</td><td>kkds</td><td>PIIDLLDKK1920</td></tr>
+<tr><td><a href='/load_book?code=SDSSDDDDD2323'>sdsdsdsds</a></td><td>sddsd dddds</td><td>ddd</td><td>2323</td><td>cscafaf</td><td>gcscs</td><td>SDSSDDDDD2323</td></tr>
 </tbody></table></section>				<section class='from-section'>
 					<h2>Add/Remove Book</h2>
 
@@ -50,7 +51,8 @@
                     <form action='/update_book' method='post' class='book-form'>
                     <input type='text' name='code' placeholder='Code'>
                     <input type='text' name='title' placeholder='Title'>
-                    <input type='text' name='author' placeholder='Author'>
+                    <input type='text' name='surname' placeholder='Surname author'>
+                    <input type='text' name='name' placeholder='Name author'>
                     <input type='text' name='publisher' placeholder='Publisher'>
                     <input type='text' name='year' placeholder='Year'>
                     <input type='text' name='genre' placeholder='Genre'>
@@ -62,25 +64,10 @@
                     <input type='text' name='code' placeholder='Code'>
                     <input type='submit' value='Delete Book'>
                     </form>
-</section><section class='search-section'><h2>Search Book</h2>
-                    <form action='/search_books' method='post'>
-                    <input type='text' name='search' placeholder='Insert the name'>
-                    <input type='submit' value='Search Book'>
-                    </form>
-<br>
-                    <form action='/search_author' method='post'>
-                    <input type='text' name='author' placeholder='Author'>
-                    <input type='submit' value='Search Author'>
-                    </form>
-<br>
-                    <form action='/search_genre' method='post'>
-                    <input type='text' name='genre' placeholder='Insert the genre'>
-                    <input type='submit' value='Search Genre'>
-                    </form>
-<br>
-                    <form action='/search_type' method='post'>
-                    <input type='text' name='type' placeholder='Insert the type'>
-                    <input type='submit' value='Search Type'>
+</section><section class='search-section'><br><h2>Search</h2>
+                    <form action='/search' method='post'>
+                    <input type='text' name='search' placeholder='Search'>
+                    <input type='submit' value='Search'>
                     </form>
 </section><h2>Add link of the book cover</h2>
                     <form action='/add_link' method='post' class='book-form'>

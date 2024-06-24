@@ -57,7 +57,7 @@ def read_books():
 def create_books_webpage():
     books = read_books()
     
-    with open("./templates/books.html", "w") as f:
+    with open("./templates/books.html", "w", encoding='utf-8') as f:
         f.write(HEADER)
         
         for book in books:
@@ -75,7 +75,14 @@ def create_books_webpage():
         f.write("<br>")
         f.write(DELETE_BOOK)
         f.write("</section>")
-        
+
+        f.write("<section class='search-section'>")
+        f.write("<br>")
+        f.write("<h2>Search</h2>")
+        f.write(SEARCH_BAR)
+        f.write("</section>")
+
+        '''
         f.write("<section class='search-section'>")
         f.write("<h2>Search Book</h2>")
         f.write(SEARCH_BOOKS)
@@ -86,7 +93,7 @@ def create_books_webpage():
         f.write("<br>")
         f.write(SEARCH_BOOKS_TYPE)
         f.write("</section>")
-        
+        '''
         f.write("<h2>Add link of the book cover</h2>")
         f.write(BOOK_ADD_LINK)
         
@@ -96,17 +103,35 @@ def create_books_webpage():
         
         f.write(FOOTER)
     ic("Books webpage created")
-    
 
-def search_books_webpage(search):
-    books = read_books()
+
+def search_webpage(search):
+    db = DatabaseManager_books()
+    books = db.read_books()
     
-    with open("./templates/books.html", "w") as f:
+    with open("./templates/books.html", "w", encoding='utf-8') as f:
         f.write(HEADER)
         
         for book in books:
-            if search in [book[n] for n in range(len(book)-1)] or search in [book[n].lower() for n in range(len(book)-1)]:
-                f.write(f"<tr><td><a href='/load_book?code={book.code}'>{book.title}</a></td><td>{book.author}</td><td>{book.publisher}</td><td>{book.year}</td><td>{book.genre}</td><td>{book.tipe}</td><td>{book.code}</td></tr>\n")
+            if search in [str(book[n]) for n in range(len(book)-1)] or search in [str(book[n]).lower() for n in range(len(book)-1)]:
+                f.write(f"<tr><td><a href='/load_book?code={book[7]}'>{book[1]}</a></td><td>{book[2]}</td><td>{book[3]}</td><td>{book[4]}</td><td>{book[5]}</td><td>{book[6]}</td><td>{book[7]}</td></tr>\n")
+        f.write("\t</table>")
+        f.write(HOME)
+        f.write(FOOTER)
+
+    ic("Books webpage created")
+
+
+def search_books_webpage(search):
+    db = DatabaseManager_books()
+    books = db.read_books()
+    
+    with open("./templates/books.html", "w", encoding='utf-8') as f:
+        f.write(HEADER)
+        
+        for book in books:
+            if search in [str(book[n]) for n in range(len(book)-1)] or search in [str(book[n]).lower() for n in range(len(book)-1)]:
+                f.write(f"<tr><td><a href='/load_book?code={book[7]}'>{book[1]}</a></td><td>{book[2]}</td><td>{book[3]}</td><td>{book[4]}</td><td>{book[5]}</td><td>{book[6]}</td><td>{book[7]}</td></tr>\n")
         f.write("\t</table>")
         f.write(HOME)
         f.write(FOOTER)
@@ -117,11 +142,11 @@ def search_books_webpage(search):
 def search_books_webpage_author(author):
     books = read_books()
     
-    with open("./templates/books.html", "w") as f:
+    with open("./templates/books.html", "w", encoding='utf-8') as f:
         f.write(HEADER)
         
         for book in books:
-            if author in book[2] or author in book[2].lower():
+            if author in book.author or author in book.author.lower():
                 f.write(f"<tr><td><a href='/load_book?code={book.code}'>{book.title}</a></td><td>{book.author}</td><td>{book.publisher}</td><td>{book.year}</td><td>{book.genre}</td><td>{book.tipe}</td><td>{book.code}</td></tr>\n")
         f.write("\t</table>")
         f.write(HOME)
@@ -133,11 +158,11 @@ def search_books_webpage_author(author):
 def search_books_webpage_genre(genre):
     books = read_books()
     
-    with open("./templates/books.html", "w") as f:
+    with open("./templates/books.html", "w", encoding='utf-8') as f:
         f.write(HEADER)
         
         for book in books:
-            if genre in book[5] or genre in book[5].lower():
+            if genre in book.genre or genre in book.genre.lower():
                 f.write(f"<tr><td><a href='/load_book?code={book.code}'>{book.title}</a></td><td>{book.author}</td><td>{book.publisher}</td><td>{book.year}</td><td>{book.genre}</td><td>{book.tipe}</td><td>{book.code}</td></tr>\n")
         f.write("\t</table>")
         f.write(HOME)
@@ -148,11 +173,11 @@ def search_books_webpage_genre(genre):
 def search_books_webpage_type(tipe):
     books = read_books()
     
-    with open("./templates/books.html", "w") as f:
+    with open("./templates/books.html", "w", encoding='utf-8') as f:
         f.write(HEADER)
 
         for book in books:
-            if tipe in book[6] or tipe in book[6].lower():
+            if tipe in book.tipe or tipe in book.tipe.lower():
                 f.write(f"<tr><td><a href='/load_book?code={book.code}'>{book.title}</a></td><td>{book.author}</td><td>{book.publisher}</td><td>{book.year}</td><td>{book.genre}</td><td>{book.tipe}</td><td>{book.code}</td></tr>\n")
         f.write("\t</table>")
         f.write(HOME)
@@ -164,11 +189,11 @@ def search_books_webpage_type(tipe):
 def search_books_webpage_year(year):
     books = read_books()
     
-    with open("./templates/books.html", "w") as f:
+    with open("./templates/books.html", "w", encoding='utf-8') as f:
         f.write(HEADER)
 
         for book in books:
-            if year in book[4] or year in book[4].lower():
+            if year in book.year or year in book.year.lower():
                 f.write(f"<tr><td><a href='/load_book?code={book.code}'>{book.title}</a></td><td>{book.author}</td><td>{book.publisher}</td><td>{book.year}</td><td>{book.genre}</td><td>{book.tipe}</td><td>{book.code}</td></tr>\n")
         f.write("\t</table>")
         f.write(HOME)
@@ -186,20 +211,21 @@ def add_book_webpage(title, author, publisher, year, genre, tipe):
     create_books_webpage()
 
 
-def update_book_webpage(code, title, author, publisher, year, genre, tipe):
+def update_book_webpage(code, title, surname, name, publisher, year, genre, tipe):
     books = read_books()
     current_book = [book for book in books if book.code == code][0]
+    author = f"{surname} {name}"
 
     updated_book = Book(
-        title if title != current_book[1] else current_book[1],
-        author if author != current_book[2] else current_book[2],
-        publisher if publisher != current_book[3] else current_book[3],
-        year if year != current_book[4] else current_book[4],
-        genre if genre != current_book[5] else current_book[5],
-        tipe if tipe != current_book[6] else current_book[6],
-        current_book[7],
-        current_book[8],
-        current_book[9]
+        title if title != current_book.title and title != "" else current_book.title,
+        author if author != current_book.author and author != ""  else current_book.author,
+        publisher if publisher != current_book.publisher and publisher != "" else current_book.publisher,
+        year if year != current_book.year and year != "" else current_book.year,
+        genre if genre != current_book.genre and genre != "" else current_book.genre,
+        tipe if tipe != current_book.tipe and tipe != "" else current_book.tipe,
+        current_book.code,
+        current_book.link_cover,
+        current_book.description
     )
 
     db = DatabaseManager_books()
@@ -221,7 +247,7 @@ def load_book_webpage(code):
     books = read_books()
     book = [book for book in books if book.code == code][0]
     
-    with open("./templates/book.html", "w") as file:
+    with open("./templates/book.html", "w", encoding='utf-8') as file:
         file.write(HEADER_BOOK_PAGE)
         file.write(f"<h1>Title: {book.title}</h1>")
         file.write(f"<h2>Author: {book.author}</h2>")
@@ -247,6 +273,23 @@ def add_book_link(code, link):
     load_book_webpage(code)
 
 
+def create_description_webpage(code):
+    with open("./templates/book_description.html", "w", encoding='utf-8') as f:
+        f.write(BOOK_DESCRIPTION_HEADER)
+        f.write(BOOK_ADD_DESCRIPTION)
+        f.write(FOOTER)
+    ic("Description webpage created")
+
+
+def add_book_description(code, description):
+    db = DatabaseManager_books()
+    books = read_books()
+    book = [book for book in books if book.code == code][0]
+    book.description = description
+    db.update_book(book)
+    load_book_webpage(code)
+
+
 def create_status_webpage():
     db_status = DatabaseManager_status()
 
@@ -257,7 +300,7 @@ def create_status_webpage():
 
     status_books = db_status.read_status()
 
-    with open("./templates/status.html", "w") as f:
+    with open("./templates/status.html", "w", encoding='utf-8') as f:
         f.write(STATUS_HEADER)
 
         for status in status_books:

@@ -46,6 +46,13 @@ HOME = '''
                     </form>
 '''
 
+SEARCH_BAR = '''
+                    <form action='/search' method='post'>
+                    <input type='text' name='search' placeholder='Search'>
+                    <input type='submit' value='Search'>
+                    </form>
+'''
+
 SEARCH_BOOKS = '''
                     <form action='/search_books' method='post'>
                     <input type='text' name='search' placeholder='Insert the name'>
@@ -91,7 +98,8 @@ UPDATE_BOOK = '''
                     <form action='/update_book' method='post' class='book-form'>
                     <input type='text' name='code' placeholder='Code'>
                     <input type='text' name='title' placeholder='Title'>
-                    <input type='text' name='author' placeholder='Author'>
+                    <input type='text' name='surname' placeholder='Surname author'>
+                    <input type='text' name='name' placeholder='Name author'>
                     <input type='text' name='publisher' placeholder='Publisher'>
                     <input type='text' name='year' placeholder='Year'>
                     <input type='text' name='genre' placeholder='Genre'>
@@ -154,13 +162,20 @@ STATUS_HEADER = '''
         <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='styles/styles.css') }} ">
     </head>
     <body>
-        <table border='1'>
-            <tr>
-            <th>Code</th>
-            <th>Status</th>
-            <th>Date</th>
-            <th>Note</th>
-            </tr>
+        <header>
+            <div class="container">
+                <h1>Book of the Library</h1>
+            </div>
+        </header>
+        <main>
+            <div class="container">
+                <table border='1'>
+                    <tr>
+                    <th>Code</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Note</th>
+                    </tr>
 '''
 
 STATUS = '''
@@ -170,7 +185,7 @@ STATUS = '''
 '''
 
 STATUS_STATUS = '''
-        <form action='/status' method='post'
+        <form action='/status' method='post'>
         <input type='text' name='code' placeholder='Insert Code'>
         <input type='text' name='status' placeholder='Insert Status'>
         <input type='submit' value='Add Status'>
@@ -178,7 +193,7 @@ STATUS_STATUS = '''
 '''
 
 STATUS_DATE = '''
-        <form action='/date' method='post'
+        <form action='/date' method='post'>
         <input type='text' name='code' placeholder='Insert Code'>
         <input type='text' name='date' placeholder='Insert Date'>
         <input type='submit' value='Add Date'>
@@ -186,7 +201,7 @@ STATUS_DATE = '''
 '''
 
 STATUS_NOTE = '''
-        <form action='/note' method='post'
+        <form action='/note' method='post'>
         <input type='text' name='code' placeholder='Insert Code'>
         <input type='text' name='note' placeholder='Insert Note'>
         <input type='submit' value='Add Note'>
@@ -194,7 +209,7 @@ STATUS_NOTE = '''
 '''
 
 STATUS_REMOVE = '''
-        <form action='/remove' method='post'
+        <form action='/remove' method='post'>
         <input type='text' name='code' placeholder='Insert Code'>
         <input type='submit' value='Remove Status'>
         </form>

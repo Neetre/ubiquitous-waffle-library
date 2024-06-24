@@ -48,10 +48,8 @@ class DatabaseManager_books:
         return self.cursor.fetchall()
     
     def update_book(self, book):
-        self.cursor.execute('''UPDATE book
-                            SET title=?, author=?, publisher=?, year=?, genre=?, type=?, link_cover=? description=?
-                            WHERE code=?''',
-                            (book.title, book.author, book.publisher, book.year, book.genre, book.tipe, book.link_cover, book.description, book.codice))
+        self.cursor.execute("UPDATE book SET title=?, author=?, publisher=?, year=?, genre=?, type=?, link_cover=?, description=? WHERE code=?",
+                            (book.title, book.author, book.publisher, book.year, book.genre, book.tipe, book.link_cover,  book.description, book.code))
         self.connection.commit()
         
     def update_code(self, book):

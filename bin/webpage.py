@@ -8,7 +8,7 @@ from utils import *
 
 app = Flask(__name__)
 
-
+'''
 def handle_search(search_term, search_type):
     if search_type == 'title':
         search_books_webpage(search_term)
@@ -20,7 +20,7 @@ def handle_search(search_term, search_type):
         search_books_webpage_type(search_term)
     elif search_type == 'year':
         search_books_webpage_year(search_term)
-
+'''
 
 @app.route('/')
 def books_page():
@@ -38,13 +38,48 @@ def home_page():
 def search():
     if request.method == 'POST':
         search = request.form['search']
-        search_type = request.form['search_type']
     else:
         search = request.args.get('search')
-        search_type = request.args.get('search_type')
-    handle_search(search, search_type)
+    search_webpage(search)
     return render_template('books.html')
 
+'''
+@app.route('/search_books', methods=['POST', 'GET'])
+def search_book():
+    if request.method == 'POST':
+        search = request.form['search']
+    else:
+        search = request.args.get('search')
+    search_books_webpage(search)
+    return render_template('books.html')
+
+@app.route('/search_author', methods=['POST', 'GET'])
+def search_author():
+    if request.method == 'POST':
+        author = request.form['author']
+    else:
+        author = request.args.get('author')
+    search_books_webpage_author(author)
+    return render_template('books.html')
+
+@app.route('/search_genre', methods=['POST', 'GET'])
+def search_genre():
+    if request.method == 'POST':
+        genre = request.form['genre']
+    else:
+        genre = request.args.get('genre')
+    search_books_webpage_genre(genre)
+    return render_template('books.html')
+
+@app.route('/search_type', methods=['POST', 'GET'])
+def search_type():
+    if request.method == 'POST':
+        type = request.form['type']
+    else:
+        type = request.args.get('type')
+    search_books_webpage_type(type)
+    return render_template('books.html')
+'''
 
 @app.route('/add_book', methods=['POST', 'GET'])
 def add_book():
@@ -94,7 +129,7 @@ def update_book():
         year = request.args.get('year')
         genre = request.args.get('genre')
         tipe = request.args.get('type')
-    update_book_webpage(code, title, author, publisher, year, genre, tipe)
+    update_book_webpage(code, title, surname, name, publisher, year, genre, tipe)
     return render_template('books.html')
 
 
@@ -145,6 +180,22 @@ def add_link():
         code = request.args.get('code')
         link = request.args.get('link')
     add_book_link(code, link)
+    return render_template('book.html')
+
+
+@app.route('/description', methods='GET')
+def description():
+    create_description_webpage()
+    return render_template('description.html')
+
+
+@app.route('/add_description', methods=['POST', 'GET'])
+def add_description():
+    if request.method == 'POST':
+        description = request.form['description']
+    else:
+        description = request.args.get('description')
+    add_book_description(description)
     return render_template('book.html')
 
 
