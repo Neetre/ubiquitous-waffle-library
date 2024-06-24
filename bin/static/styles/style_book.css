@@ -63,6 +63,12 @@ img {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
+.cover {
+    width: 200px;
+    float: left;
+    margin-right: 20px;
+}
+
 /* Footer styles */
 footer {
     margin-top: 20px;

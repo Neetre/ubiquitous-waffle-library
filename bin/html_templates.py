@@ -115,6 +115,17 @@ BOOK_ADD_LINK = '''
                     </form>
 '''
 
+BOOK_DESCRIPTION_HEADER = '''
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Add Description</title>
+        <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='styles/style_book.css') }} ">
+    </head>
+    <body>
+        <div class="container">
+'''
+
 BOOK_ADD_DESCRIPTION = '''
                     <form action='/add_description' method='post' class='book-form'>
                     <textarea id="book-description" name="book-description" placeholder="Write the book description here..."></textarea>

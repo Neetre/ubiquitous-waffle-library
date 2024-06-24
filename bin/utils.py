@@ -231,6 +231,7 @@ def load_book_webpage(code):
         file.write(f"<h2>Type: {book.tipe}</h2>")
         file.write(f"<h2>Code: {book.code}</h2>")
         file.write(f"<h2>Description: {book.description}</h2>")
+        file.write("<div class='cover'>")
         file.write("<img src=\"{{ url_for(\'static\',filename=\'covers/"+ book.link_cover + "\') }}\" alt=\'Cover of the book\'>")
         file.write(HOME)
         file.write("</div>")
@@ -260,7 +261,7 @@ def create_status_webpage():
         f.write(STATUS_HEADER)
 
         for status in status_books:
-            f.write(f"<tr><td>{status[1]}</td><td>{status[2]}</td><td>{status[3]}</td><td>{status[4]}</td></tr>")
+            f.write(f"<tr><td><a href='/load_book?code={status[1]}'>{status[1]}</a></td><td>{status[2]}</td><td>{status[3]}</td><td>{status[4]}</td></tr>")
 
         f.write("</table>")
         f.write(STATUS_STATUS)

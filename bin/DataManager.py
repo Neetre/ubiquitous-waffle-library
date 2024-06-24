@@ -68,7 +68,7 @@ class DatabaseManager_books:
 
 
 class DatabaseManager_status:
-    def __init__(self, db_file="../data/libri.db"):
+    def __init__(self, db_file="../data/books.db"):
         self.db_file = db_file
         self.connection = sqlite3.connect(self.db_file)
         self.cursor = self.connection.cursor()
