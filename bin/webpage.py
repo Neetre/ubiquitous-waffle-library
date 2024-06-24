@@ -30,7 +30,8 @@ def books_page():
 
 @app.route('/home_page')
 def home_page():
-    books_page()
+    create_books_webpage()
+    return render_template('books.html')
 
 
 @app.route('/search', methods=['POST', 'GET'])
@@ -123,6 +124,28 @@ def update_status():
         status = request.args.get('status')
     update_status_webpage(code, status)
     return render_template('status.html')
+
+
+@app.route('/load_book', methods=['POST', 'GET'])
+def load_book():
+    if request.method == 'POST':
+        code = request.form['code']
+    else:
+        code = request.args.get('code')
+    load_book_webpage(code)
+    return render_template('book.html')
+
+
+@app.route('/add_link', methods=['POST', 'GET'])
+def add_link():
+    if request.method == 'POST':
+        code = request.form['code']
+        link = request.form['link']
+    else:
+        code = request.args.get('code')
+        link = request.args.get('link')
+    add_book_link(code, link)
+    return render_template('book.html')
 
 
 if __name__ == "__main__":

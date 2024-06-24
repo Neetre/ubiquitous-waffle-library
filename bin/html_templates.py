@@ -194,7 +194,7 @@ HEADER_BOOK_PAGE = '''
 <html lang="en">
     <head>
         <title>Book</title>
-        <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='styles/style_book.css') }}
+        <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='styles/style_book.css') }} ">
     </head>
     <body>
         <div class="container">

@@ -54,7 +54,7 @@ form {
     flex-wrap: wrap;
 }
 
-input[type='text'], input[type='number'], input[type='submit'] {
+input[type="text"], input[type="number"], input[type="submit"] {
     flex: 1;
     padding: 10px;
     margin: 5px;
@@ -62,7 +62,7 @@ input[type='text'], input[type='number'], input[type='submit'] {
     border-radius: 4px;
 }
 
-input[type='submit']{
+input[type="submit"] {
     background-color: #4CAF50;
     color: #fff;
     border: none;
@@ -70,8 +70,8 @@ input[type='submit']{
     transition: background-color 0.3s ease;
 }
 
-input[type='submit']:hover {
-    background-color: #4CAF50;
+input[type="submit"]:hover {
+    background-color: #45a049;
 }
 
 /* Footer Styles */
@@ -82,20 +82,23 @@ footer {
     color: #fff;
 }
 
-
-@media only screen and (max-width: 600px){
+@media only screen and (max-width: 600px) {
     .container {
         padding: 10px;
     }
+
     header {
         padding: 10px 0;
     }
+
     h1 {
         font-size: 24px;
     }
+
     table {
         font-size: 14px;
     }
+
     input[type="text"], input[type="number"], input[type="submit"] {
         width: calc(100% - 20px);
     }

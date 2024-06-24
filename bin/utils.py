@@ -230,11 +230,20 @@ def load_book_webpage(code):
         file.write(f"<h2>Genre: {book.genre}</h2>")
         file.write(f"<h2>Type: {book.tipe}</h2>")
         file.write(f"<h2>Code: {book.code}</h2>")
-        file.write(f"<h2>Description: {book.desciption}</h2>")
-        file.write("<img src=\"{{ url_for(\'static\',filename=\'copertine/"+ book.link_cover + "\') }}\" alt=\'Copertina del libro\'>")
+        file.write(f"<h2>Description: {book.description}</h2>")
+        file.write("<img src=\"{{ url_for(\'static\',filename=\'covers/"+ book.link_cover + "\') }}\" alt=\'Cover of the book\'>")
         file.write(HOME)
         file.write("</div>")
         file.write(FOOTER)
+
+
+def add_book_link(code, link):
+    db = DatabaseManager_books()
+    books = read_books()
+    book = [book for book in books if book.code == code][0]
+    book.link_cover = link
+    db.update_book(book)
+    load_book_webpage(code)
 
 
 def create_status_webpage():
