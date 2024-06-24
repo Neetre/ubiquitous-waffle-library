@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <title>Status of the Books</title>
         <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='styles/styles.css') }} ">
@@ -8,7 +8,7 @@
     <body>
         <header>
             <div class="container">
-                <h1>Book of the Library</h1>
+                <h1>Status of the Books</h1>
             </div>
         </header>
         <main>
@@ -20,7 +20,7 @@
                     <th>Date</th>
                     <th>Note</th>
                     </tr>
-<tr><td><a href='/load_book?code=PIIDLLDKK1920'>PIIDLLDKK1920</a></td><td>Available</td><td>N/A</td><td>No note</td></tr><tr><td><a href='/load_book?code=SDSSDDDDD2323'>SDSSDDDDD2323</a></td><td>Available</td><td>N/A</td><td>No note</td></tr></table>
+<tr><td><a href='/load_book?code=CHITCHPAN2015'>CHITCHPAN2015</a></td><td>Available</td><td>N/A</td><td>No note</td></tr></table>
         <form action='/status' method='post'>
         <input type='text' name='code' placeholder='Insert Code'>
         <input type='text' name='status' placeholder='Insert Status'>

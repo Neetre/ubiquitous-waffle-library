@@ -199,7 +199,7 @@ def add_description():
     else:
         code = request.args.get('code')
         description = request.args.get('description')
-    add_book_description(description)
+    add_book_description(code, description)
     return render_template('book.html')
 
 

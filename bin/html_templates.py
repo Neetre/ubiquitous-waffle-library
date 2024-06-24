@@ -24,7 +24,7 @@ HEADER = '''
         <main>
             <div class="container">
                 <section class="book-section">
-                    <h2>Books Available</h2>
+                    <h2>Books in the Library</h2>
                     <table border='1'>
                         <thead>
                             <tr>
@@ -118,14 +118,14 @@ DELETE_BOOK = '''
 BOOK_ADD_LINK = '''
                     <form action='/add_link' method='post' class='book-form'>
                     <input type='text' name='code' placeholder='Code'>
-                    <input type='text' name='photo_link' placeholder='Link cover'>
+                    <input type='text' name='link' placeholder='Link cover'>
                     <input type='submit' value="Add cover link">
                     </form>
 '''
 
 DESCRIPTION = '''
         <form action='/description' method='get'>
-        <input type='submit' value='Description'>
+        <input type='submit' value='Modify Desciption'>
         <form>
 '''
 
@@ -163,7 +163,7 @@ FOOTER = '''
 
 STATUS_HEADER = '''
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <title>Status of the Books</title>
         <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='styles/styles.css') }} ">
@@ -171,7 +171,7 @@ STATUS_HEADER = '''
     <body>
         <header>
             <div class="container">
-                <h1>Book of the Library</h1>
+                <h1>Status of the Books</h1>
             </div>
         </header>
         <main>

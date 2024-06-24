@@ -2,15 +2,15 @@
 
 source ./setup/setup_Linux.sh
 
-echo "Want to run the GUI? (y/n):"
+echo "LAN IP? (y/n):"
 read UserInput
 
+cd /bin/
+
 if [ $UserInput = "n" ]; then
+    python3 webpage.py --local
     exit
 fi
 
-# Change the current directory to the one containing the script
-cd /bin/
-
-# Run the application
-python3 webpage.py
+python3 webpage.py --ip
+exit
