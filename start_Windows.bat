@@ -6,21 +6,32 @@ REM Change directory to 'bin' and run the application
 CD /d bin
 IF ERRORLEVEL 1 (
     ECHO Failed to change directory to 'bin'
+    PAUSE
     EXIT /B 1
 )
 
 
-SET /P UserInput=Want to run the GUI? (y/n):
-IF /I "%UserInput%" EQU "y" GOTO RunGUI
-IF /I "%UserInput%" EQU "n" GOTO End
+SET /P UserInput=LAN IP? (y/n):
+IF /I "%UserInput%" EQU "y" GOTO AskIP
+IF /I "%UserInput%" EQU "n" GOTO RunApp
 
-
-:RunGUI
-python webpage.py
+:AskIP
+python webpage.py --ip
 IF ERRORLEVEL 1 (
     ECHO Failed to run webpage.py
+    PAUSE
+    EXIT /B 1
+)
+GOTO End
+
+:RunApp
+python webpage.py --local
+IF ERRORLEVEL 1 (
+    ECHO Failed to run webpage.py
+    PAUSE
     EXIT /B 1
 )
 
 :End
+PAUSE
 EXIT /B 0

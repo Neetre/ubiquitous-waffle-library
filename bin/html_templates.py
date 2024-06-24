@@ -123,6 +123,12 @@ BOOK_ADD_LINK = '''
                     </form>
 '''
 
+DESCRIPTION = '''
+        <form action='/description' method='get'>
+        <input type='submit' value='Description'>
+        <form>
+'''
+
 BOOK_DESCRIPTION_HEADER = '''
 <!DOCTYPE html>
 <html lang="en">
@@ -136,7 +142,8 @@ BOOK_DESCRIPTION_HEADER = '''
 
 BOOK_ADD_DESCRIPTION = '''
                     <form action='/add_description' method='post' class='book-form'>
-                    <textarea id="book-description" name="book-description" placeholder="Write the book description here..."></textarea>
+                    <input type='text' name='code' placeholder='Code'>
+                    <textarea id="description" name="description" placeholder="Write the book description here..."></textarea>
                     <button type="submit" class="submit-btn">Submit</button>
                     </form>
 '''

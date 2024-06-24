@@ -3,6 +3,8 @@
 Neetre 2024
 '''
 
+import argparse
+
 from flask import Flask, render_template, request
 from utils import *
 
@@ -183,7 +185,7 @@ def add_link():
     return render_template('book.html')
 
 
-@app.route('/description', methods='GET')
+@app.route('/description')
 def description():
     create_description_webpage()
     return render_template('description.html')
@@ -192,12 +194,36 @@ def description():
 @app.route('/add_description', methods=['POST', 'GET'])
 def add_description():
     if request.method == 'POST':
+        code = request.form['code']
         description = request.form['description']
     else:
+        code = request.args.get('code')
         description = request.args.get('description')
     add_book_description(description)
     return render_template('book.html')
 
 
+def args_parsing():
+    parser = argparse.ArgumentParser(description='Home Library')
+    parser.add_argument("-l", '--local', action="store_true", default=False,
+                        help='Host the website localy')
+    parser.add_argument('--ip', action="store_true", default=False,
+                        help='LAN IP address to host the website')
+    parser.add_argument("--debug", action="store_true", default=False,
+                        help='Debug mode')
+    parser.add_argument("-v", '--verbose', action="store_true", default=False,
+                        help='Prints everything')
+
+    args = parser.parse_args()
+    return args
+
+
 if __name__ == "__main__":
-    app.run(host='127.0.0.1', port=5000, debug=True)
+    args = args_parsing()
+    if args.verbose:
+        ic.enable()
+    
+    if args.local:
+        app.run(host='127.0.0.1', port=5000, debug=args.debug)
+    elif args.ip:
+        app.run(host=get_local_ip(), port=5000, debug=args.debug)

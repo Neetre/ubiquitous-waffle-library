@@ -2,16 +2,18 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Book</title>
+        <title>Add Description</title>
         <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='styles/style_book.css') }} ">
     </head>
     <body>
         <div class="container">
-<h1>Title: sdsdsdsds</h1><h2>Author: sddsd dddds</h2><h2>Publisher: ddd</h2><h2>Year: 2323</h2><h2>Genre: cscafaf</h2><h2>Type: gcscs</h2><h2>Code: SDSSDDDDD2323</h2><h2>Description: </h2>
-        <form action='/description' method='get'>
-        <input type='submit' value='Description'>
-        <form>
-</form><br><div class='cover'><img src="{{ url_for('static',filename='covers/') }}" alt='Cover of the book'></div><br>
+
+                    <form action='/add_description' method='post' class='book-form'>
+                    <input type='text' name='code' placeholder='Code'>
+                    <textarea id="book-description" name="book-description" placeholder="Write the book description here..."></textarea>
+                    <button type="submit" class="submit-btn">Submit</button>
+                    </form>
+<br>
                     <form action='/home_page' method='get'>
                     <input type='submit' value='Home'>
                     </form>

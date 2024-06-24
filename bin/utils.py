@@ -2,23 +2,22 @@
 Neetre 2024
 '''
 
-import argparse
+import socket
 from icecream import ic
 
 from DataManager import DatabaseManager_books, DatabaseManager_status
 from html_templates import *
 
 
-def args_parsing():
-    parser = argparse.ArgumentParser(description='PyTorch MNIST Example')
-    parser.add_argument("-l", '--local', action="store_true", default=False,
-                        help='Host the website localy')
-    parser.add_argument("-v", '--verbose', action="store_true", default=False,
-                        help='Prints everything')
-
-
-    args = parser.parse_args()
-    return args
+def get_local_ip():
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8", 80))
+        ip = s.getsockname()[0]
+        s.close()
+        return ip
+    except Exception as e:
+        return "Unable to obtain IP: " + str(e)
 
 
 class Book:
@@ -257,10 +256,14 @@ def load_book_webpage(code):
         file.write(f"<h2>Type: {book.tipe}</h2>")
         file.write(f"<h2>Code: {book.code}</h2>")
         file.write(f"<h2>Description: {book.description}</h2>")
+        file.write(DESCRIPTION)
+        file.write("</form>")
+        file.write("<br>")
         file.write("<div class='cover'>")
         file.write("<img src=\"{{ url_for(\'static\',filename=\'covers/"+ book.link_cover + "\') }}\" alt=\'Cover of the book\'>")
-        file.write(HOME)
         file.write("</div>")
+        file.write("<br>")
+        file.write(HOME)
         file.write(FOOTER)
 
 
@@ -273,10 +276,12 @@ def add_book_link(code, link):
     load_book_webpage(code)
 
 
-def create_description_webpage(code):
-    with open("./templates/book_description.html", "w", encoding='utf-8') as f:
+def create_description_webpage():
+    with open("./templates/description.html", "w", encoding='utf-8') as f:
         f.write(BOOK_DESCRIPTION_HEADER)
         f.write(BOOK_ADD_DESCRIPTION)
+        f.write("<br>")
+        f.write(HOME)
         f.write(FOOTER)
     ic("Description webpage created")
 
