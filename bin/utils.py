@@ -5,7 +5,7 @@ Neetre 2024
 import argparse
 from icecream import ic
 
-from DataManager import DatabaseManager_books
+from DataManager import DatabaseManager_books, DatabaseManager_status
 from html_templates import *
 
 
@@ -31,7 +31,7 @@ class Book:
         self.tipe = tipe
         self.code = code
         self.link_cover = link_cover
-        self.desciption = desciption
+        self.description = desciption
 
     def __str__(self):
         return f"{self.title} by {self.author} published by {self.publisher} in {self.year} - {self.genre} - {self.tipe} - {self.code}"
@@ -61,7 +61,7 @@ def create_books_webpage():
         f.write(HEADER)
         
         for book in books:
-            f.write(f"<tr><td><a href='/load_book?code={book[7]}'>{book[1]}</a></td><td>{book[2]}</td><td>{book[3]}</td><td>{book[4]}</td><td>{book[5]}</td><td>{book[6]}</td><td>{book[7]}</td></tr>\n")
+            f.write(f"<tr><td><a href='/load_book?code={book.code}'>{book.title}</a></td><td>{book.author}</td><td>{book.publisher}</td><td>{book.year}</td><td>{book.genre}</td><td>{book.tipe}</td><td>{book.code}</td></tr>\n")
 
         f.write("</tbody>")
         f.write("</table>")
@@ -106,7 +106,7 @@ def search_books_webpage(search):
         
         for book in books:
             if search in [book[n] for n in range(len(book)-1)] or search in [book[n].lower() for n in range(len(book)-1)]:
-                f.write(f"<tr><td><a href='/load_book?code={book[7]}'>{book[1]}</a></td><td>{book[2]}</td><td>{book[3]}</td><td>{book[4]}</td><td>{book[5]}</td><td>{book[6]}</td><td>{book[7]}</td></tr>")
+                f.write(f"<tr><td><a href='/load_book?code={book.code}'>{book.title}</a></td><td>{book.author}</td><td>{book.publisher}</td><td>{book.year}</td><td>{book.genre}</td><td>{book.tipe}</td><td>{book.code}</td></tr>\n")
         f.write("\t</table>")
         f.write(HOME)
         f.write(FOOTER)
@@ -122,7 +122,7 @@ def search_books_webpage_author(author):
         
         for book in books:
             if author in book[2] or author in book[2].lower():
-                f.write(f"<tr><td><a href='/load_book?code={book[7]}'>{book[1]}</a></td><td>{book[2]}</td><td>{book[3]}</td><td>{book[4]}</td><td>{book[5]}</td><td>{book[6]}</td><td>{book[7]}</td></tr>")
+                f.write(f"<tr><td><a href='/load_book?code={book.code}'>{book.title}</a></td><td>{book.author}</td><td>{book.publisher}</td><td>{book.year}</td><td>{book.genre}</td><td>{book.tipe}</td><td>{book.code}</td></tr>\n")
         f.write("\t</table>")
         f.write(HOME)
         f.write(FOOTER)
@@ -138,7 +138,7 @@ def search_books_webpage_genre(genre):
         
         for book in books:
             if genre in book[5] or genre in book[5].lower():
-                f.write(f"<tr><td><a href='/load_book?code={book[7]}'>{book[1]}</a></td><td>{book[2]}</td><td>{book[3]}</td><td>{book[4]}</td><td>{book[5]}</td><td>{book[6]}</td></tr>")
+                f.write(f"<tr><td><a href='/load_book?code={book.code}'>{book.title}</a></td><td>{book.author}</td><td>{book.publisher}</td><td>{book.year}</td><td>{book.genre}</td><td>{book.tipe}</td><td>{book.code}</td></tr>\n")
         f.write("\t</table>")
         f.write(HOME)
         f.write(FOOTER)
@@ -153,7 +153,7 @@ def search_books_webpage_type(tipe):
 
         for book in books:
             if tipe in book[6] or tipe in book[6].lower():
-                f.write(f"<tr><td><a href='/load_book?code={book[7]}'>{book[1]}</a></td><td>{book[2]}</td><td>{book[3]}</td><td>{book[4]}</td><td>{book[5]}</td><td>{book[6]}</td></tr>")
+                f.write(f"<tr><td><a href='/load_book?code={book.code}'>{book.title}</a></td><td>{book.author}</td><td>{book.publisher}</td><td>{book.year}</td><td>{book.genre}</td><td>{book.tipe}</td><td>{book.code}</td></tr>\n")
         f.write("\t</table>")
         f.write(HOME)
         f.write(FOOTER)
@@ -169,7 +169,7 @@ def search_books_webpage_year(year):
 
         for book in books:
             if year in book[4] or year in book[4].lower():
-                f.write(f"<tr><td><a href='/load_book?code={book[7]}'>{book[1]}</a></td><td>{book[2]}</td><td>{book[3]}</td><td>{book[4]}</td><td>{book[5]}</td><td>{book[6]}</td></tr>")
+                f.write(f"<tr><td><a href='/load_book?code={book.code}'>{book.title}</a></td><td>{book.author}</td><td>{book.publisher}</td><td>{book.year}</td><td>{book.genre}</td><td>{book.tipe}</td><td>{book.code}</td></tr>\n")
         f.write("\t</table>")
         f.write(HOME)
         f.write(FOOTER)
@@ -180,7 +180,7 @@ def search_books_webpage_year(year):
 def add_book_webpage(title, author, publisher, year, genre, tipe):
     db = DatabaseManager_books()
     
-    code = title[:3].upper() + author[:3].upper() + publisher[:3] + str(year)
+    code = title[:3].upper() + author[:3].upper() + publisher[:3].upper() + str(year)
     book = Book(title, author, publisher, year, genre, tipe, code)
     db.write_book(book)
     create_books_webpage()
@@ -209,9 +209,11 @@ def update_book_webpage(code, title, author, publisher, year, genre, tipe):
 
 def delete_book_webpage(code):
     db = DatabaseManager_books()
+    db_status = DatabaseManager_status()   # modified after status implementation
     books = read_books()
     book = [book for book in books if book.code == code][0]
     db.delete_book(book)
+    db_status.delete_status(book.code)
     create_books_webpage()
 
 
@@ -259,3 +261,9 @@ def create_status_webpage():
         f.write(FOOTER)
 
     ic("Status webpage created")
+
+
+def update_status_webpage(code, status):
+    db_status = DatabaseManager_status()
+    db_status.update_status(status, code)
+    create_status_webpage()

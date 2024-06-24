@@ -140,7 +140,7 @@ STATUS_HEADER = '''
 <html>
     <head>
         <title>Status of the Books</title>
-        <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='styles/style.css') }}
+        <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='styles/styles.css') }} ">
     </head>
     <body>
         <table border='1'>

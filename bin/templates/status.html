@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Status of the Books</title>
+        <link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='styles/styles.css') }} ">
+    </head>
+    <body>
+        <table border='1'>
+            <tr>
+            <th>Code</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Note</th>
+            </tr>
+<tr><td>PIPCREDKK0091</td><td>Available</td><td>N/A</td><td>No note</td></tr></table>
+        <form action='/status' method='post'
+        <input type='text' name='code' placeholder='Insert Code'>
+        <input type='text' name='status' placeholder='Insert Status'>
+        <input type='submit' value='Add Status'>
+        </form>
+
+        <form action='/date' method='post'
+        <input type='text' name='code' placeholder='Insert Code'>
+        <input type='text' name='date' placeholder='Insert Date'>
+        <input type='submit' value='Add Date'>
+        </form>
+
+        <form action='/note' method='post'
+        <input type='text' name='code' placeholder='Insert Code'>
+        <input type='text' name='note' placeholder='Insert Note'>
+        <input type='submit' value='Add Note'>
+        </form>
+
+                    <form action='/home_page' method='get'>
+                    <input type='submit' value='Home'>
+                    </form>
+
+            </div>
+        </main>
+        <footer>
+            <div class="container">
+                <p>&copy; 2024 Neetre. All rights reserved.</p>
+            </div>
+        </footer>
+    </body>
+</html>

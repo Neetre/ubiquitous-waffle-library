@@ -40,7 +40,7 @@ class DatabaseManager_books:
             self.cursor.execute('''INSERT INTO book
                                 (title, author, publisher, year, genre, type, code, link_cover, description)
                                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)''',
-                                (book.title, book.author, book.editor, book.year, book.genre, book.tipe, book.code, book.link_cover, book.description))
+                                (book.title, book.author, book.publisher, book.year, book.genre, book.tipe, book.code, book.link_cover, book.description))
             self.connection.commit()
             
     def read_books(self):
@@ -51,7 +51,7 @@ class DatabaseManager_books:
         self.cursor.execute('''UPDATE book
                             SET title=?, author=?, publisher=?, year=?, genre=?, type=?, link_cover=? description=?
                             WHERE code=?''',
-                            (book.title, book.author, book.editor, book.year, book.genre, book.tipe, book.link_cover, book.description, book.codice))
+                            (book.title, book.author, book.publisher, book.year, book.genre, book.tipe, book.link_cover, book.description, book.codice))
         self.connection.commit()
         
     def update_code(self, book):
@@ -86,8 +86,8 @@ class DatabaseManager_status:
         self.connection.commit()
 
     def check_duplicate(self, book):
-        self.cursor.excecute("SELECT * FROM status WHERE code=? AND status=? AND date=?",
-                             (book.code, book.status, book.date))
+        self.cursor.execute("SELECT * FROM status WHERE code=?",
+                             (book.code,))
         return self.cursor.fetchone() is not None
 
     def write_status(self, book, status='Available', date='N/A', note='No note'):
@@ -101,5 +101,15 @@ class DatabaseManager_status:
     def read_status(self):
         self.cursor.execute("SELECT * FROM status")
         return self.cursor.fetchall()
-
     
+    def update_status(self, status, code):
+        self.cursor.execute("UPDATE status SET status=? WHERE code=?",
+                            (status, code))
+        self.connection.commit()
+
+    def delete_status(self, code):
+        self.cursor.execute("DELETE FROM status WHERE code=?",
+                            (code,))
+        self.connection.commit()
+
+
