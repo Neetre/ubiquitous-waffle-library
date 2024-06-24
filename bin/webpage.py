@@ -41,7 +41,7 @@ def search():
     else:
         search = request.args.get('search')
         search_type = request.args.get('search_type')
-    handle_search(search. search_type)
+    handle_search(search, search_type)
     return render_template('books.html')
 
 
@@ -54,7 +54,7 @@ def add_book():
         publisher = request.form['publisher']
         year = request.form['year']
         genre = request.form['genre']
-        type = request.form['type']
+        tipe = request.form['type']
         author = f"{surname} {name}"
         ic(title, author)
     else:
@@ -64,10 +64,10 @@ def add_book():
         publisher = request.args.get('publisher')
         year = request.args.get('year')
         genre = request.args.get('genre')
-        type = request.args.get('type')
+        tipe = request.args.get('type')
         author = f"{surname} {name}"
         ic(title, author)
-    add_book_webpage(title, author, publisher, year, genre, type)
+    add_book_webpage(title, author, publisher, year, genre, tipe)
     return render_template('books.html')
 
 

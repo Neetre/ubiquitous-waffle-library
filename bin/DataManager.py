@@ -25,6 +25,9 @@ class DatabaseManager_books:
                             link_cover TEXT,
                             description text
                             )''')
+        self.cursor.execute("CREATE INDEX IF NOT EXISTS idx_title ON book(title)")
+        self.cursor.execute("CREATE INDEX IF NOT EXISTS idx_author ON book(author)")
+        self.cursor.execute("CREATE INDEX IF NOT EXISTS idx_code ON book(code)")
         self.connection.commit()
         
     def check_duplicate(self, book: object):
@@ -34,8 +37,10 @@ class DatabaseManager_books:
     
     def write_book(self, book):
         if not self.check_duplicate(book):
-            self.cursor.execute("INSERT INTO book (title, author, publisher, year, genre, type, code, link_cover, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                                (book.title, book.author, book.editor, book.year, book.genre, book.type, book.code, book.link_cover, book.description))
+            self.cursor.execute('''INSERT INTO book
+                                (title, author, publisher, year, genre, type, code, link_cover, description)
+                                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)''',
+                                (book.title, book.author, book.editor, book.year, book.genre, book.tipe, book.code, book.link_cover, book.description))
             self.connection.commit()
             
     def read_books(self):
@@ -43,8 +48,10 @@ class DatabaseManager_books:
         return self.cursor.fetchall()
     
     def update_book(self, book):
-        self.cursor.execute("UPDATE book SET title=?, author=?, publisher=?, year=?, genre=?, type=?, link_cover=? description=? WHERE code=?",
-                            (book.title, book.author, book.editor, book.year, book.genre, book.type, book.link_cover, book.description, book.codice))
+        self.cursor.execute('''UPDATE book
+                            SET title=?, author=?, publisher=?, year=?, genre=?, type=?, link_cover=? description=?
+                            WHERE code=?''',
+                            (book.title, book.author, book.editor, book.year, book.genre, book.tipe, book.link_cover, book.description, book.codice))
         self.connection.commit()
         
     def update_code(self, book):

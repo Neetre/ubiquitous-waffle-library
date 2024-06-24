@@ -21,36 +21,20 @@ def args_parsing():
     return args
 
 
-class Library:
-    def __init__(self, name, location):
-        self.name = name
-        self.location = location
-        self.books = []
-
-    def add_book(self, book):
-        self.books.append(book)
-
-    def remove_book(self, book):
-        self.books.remove(book)
-
-    def __str__(self) -> str:
-        return f"{self.name} located in {self.location} with {len(self.books)} books"
-
-
 class Book:
-    def __init__(self, title, author, publisher, year, genre, type, code, link_cover="", desciption=""):
+    def __init__(self, title, author, publisher, year, genre, tipe, code, link_cover="", desciption=""):
         self.title = title
         self.author = author
         self.publisher = publisher
         self.year = year
         self.genre = genre
-        self.type = type
+        self.tipe = tipe
         self.code = code
         self.link_cover = link_cover
         self.desciption = desciption
 
     def __str__(self):
-        return f"{self.title} by {self.author} published by {self.publisher} in {self.year} - {self.genre} - {self.type} - {self.code}"
+        return f"{self.title} by {self.author} published by {self.publisher} in {self.year} - {self.genre} - {self.tipe} - {self.code}"
 
 
 class BookStatus:
@@ -67,14 +51,11 @@ class BookStatus:
 def read_books():
     db = DatabaseManager_books()
     books = db.read_books()
-    library = Library("Library", "Rome")
-    library.add_book([Book(book[1], book[2], book[3], book[4], book[5], book[6], book[7], book[8], book[9]) for book in books])
-    return library
+    return [Book(*book[1:]) for book in books]
 
 
 def create_books_webpage():
-    db = DatabaseManager_books()  # keep the default path
-    books = db.read_books()
+    books = read_books()
     
     with open("./templates/books.html", "w") as f:
         f.write(HEADER)
@@ -118,8 +99,7 @@ def create_books_webpage():
     
 
 def search_books_webpage(search):
-    db = DatabaseManager_books()
-    books = db.read_books()
+    books = read_books()
     
     with open("./templates/books.html", "w") as f:
         f.write(HEADER)
@@ -135,8 +115,7 @@ def search_books_webpage(search):
 
 
 def search_books_webpage_author(author):
-    db = DatabaseManager_books()
-    books = db.read_books()
+    books = read_books()
     
     with open("./templates/books.html", "w") as f:
         f.write(HEADER)
@@ -152,8 +131,7 @@ def search_books_webpage_author(author):
 
 
 def search_books_webpage_genre(genre):
-    db = DatabaseManager_books()
-    books = db.read_books()
+    books = read_books()
     
     with open("./templates/books.html", "w") as f:
         f.write(HEADER)
@@ -167,15 +145,14 @@ def search_books_webpage_genre(genre):
         
     ic("Books webpage created")
 
-def search_books_webpage_type(type):
-    db = DatabaseManager_books()
-    books = db.read_books()
+def search_books_webpage_type(tipe):
+    books = read_books()
     
     with open("./templates/books.html", "w") as f:
         f.write(HEADER)
 
         for book in books:
-            if type in book[6] or type in book[6].lower():
+            if tipe in book[6] or tipe in book[6].lower():
                 f.write(f"<tr><td><a href='/load_book?code={book[7]}'>{book[1]}</a></td><td>{book[2]}</td><td>{book[3]}</td><td>{book[4]}</td><td>{book[5]}</td><td>{book[6]}</td></tr>")
         f.write("\t</table>")
         f.write(HOME)
@@ -185,14 +162,13 @@ def search_books_webpage_type(type):
 
 
 def search_books_webpage_year(year):
-    db = DatabaseManager_books()
-    books = db.read_books()
+    books = read_books()
     
     with open("./templates/books.html", "w") as f:
         f.write(HEADER)
 
         for book in books:
-            if type in book[6] or type in book[6].lower():
+            if year in book[4] or year in book[4].lower():
                 f.write(f"<tr><td><a href='/load_book?code={book[7]}'>{book[1]}</a></td><td>{book[2]}</td><td>{book[3]}</td><td>{book[4]}</td><td>{book[5]}</td><td>{book[6]}</td></tr>")
         f.write("\t</table>")
         f.write(HOME)
@@ -201,22 +177,57 @@ def search_books_webpage_year(year):
     ic("Books webpage created")
 
 
-def add_book_webpage(title, author, publisher, year, genre, type):
+def add_book_webpage(title, author, publisher, year, genre, tipe):
     db = DatabaseManager_books()
     
     code = title[:3].upper() + author[:3].upper() + publisher[:3] + str(year)
-    book = Book(title, author, publisher, year, genre, type, code)
+    book = Book(title, author, publisher, year, genre, tipe, code)
     db.write_book(book)
     create_books_webpage()
 
 
-def write_book_test():
-    book = Book("Test", "Test", "Test", 2021, "Test", "Test", "TST")
-    library = read_books()
-    library.add_book(book)
-    for book in library.books:
-        print(book)
+def update_book_webpage(code, title, author, publisher, year, genre, tipe):
+    books = read_books()
+    current_book = [book for book in books if book.code == code][0]
+
+    updated_book = Book(
+        title if title != current_book[1] else current_book[1],
+        author if author != current_book[2] else current_book[2],
+        publisher if publisher != current_book[3] else current_book[3],
+        year if year != current_book[4] else current_book[4],
+        genre if genre != current_book[5] else current_book[5],
+        tipe if tipe != current_book[6] else current_book[6],
+        current_book[7],
+        current_book[8],
+        current_book[9]
+    )
+
+    db = DatabaseManager_books()
+    db.update_book(updated_book)
+    create_books_webpage()
 
 
-if __name__ == "__main__":
-    write_book_test()
+def delete_book_webpage(code):
+    db = DatabaseManager_books()
+    books = read_books()
+    book = [book for book in books if book.code == code][0]
+    db.delete_book(book)
+    create_books_webpage()
+
+
+def load_book_webpage(code):
+    books = read_books()
+    book = [book for book in books if book.code == code][0]
+    
+    with open("./templates/book.html", "w") as file:
+        file.write(HEADER_BOOK_PAGE)
+        file.write(f"<h1>Title: {book.title}</h1>")
+        file.write(f"<h2>Author: {book.author}</h2>")
+        file.write(f"<h2>Publisher: {book.publisher}</h2>")
+        file.write(f"<h2>Year: {book.year}</h2>")
+        file.write(f"<h2>Genre: {book.genre}</h2>")
+        file.write(f"<h2>Type: {book.tipe}</h2>")
+        file.write(f"<h2>Code: {book.code}</h2>")
+        file.write(f"<h2>Description: {book.desciption}</h2>")
+        file.write("<img src=\"{{ url_for(\'static\',filename=\'copertine/"+ book.link_cover + "\') }}\" alt=\'Copertina del libro\'>")
+
