@@ -7,6 +7,8 @@
 
 ## Description
 
+This repository contains a project developed for Hack Club.
+
 The program webpage.py, offers a simple system to keep a record of all the books someone has in their home.
 
 This all started because I needed a DB for for my Home Library.
