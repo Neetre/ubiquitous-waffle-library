@@ -49,9 +49,9 @@ These scripts will install required dependencies, and build a virtual environmen
 
     The `--help` flag displays available command-line arguments.
 
-### GUI:
+### GUI
 
-Double click on the *start files* for your OS, and it should open the 'web app' automatically after setting up the environment, like I wrote in the **Requirements** area.
+Double click on the *start files* for your OS, and it should start the website automatically after setting up the environment, like I wrote in the **Requirements** area.
 
 At some point it will ask you 'LAN IP? (y/n):', if you say 'y' then you will load your page on a IP address that is visible from other devices in your LAN network. With 'n' you will run it locally, no access from outside your computer.
 
